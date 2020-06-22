@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Calculadora JavaScript
+# Calculadora em JavaScript
 
-[![Hcode Treinamentos](https://www.hcode.com.br/res/img/hcode-200x100.png)](https://www.hcode.com.br)
-
-Calculadora desenvolvida como exemplo do Curso Completo de JavaScript na Udemy.com.
-
-### Projeto
-![Calculadora](https://firebasestorage.googleapis.com/v0/b/hcode-com-br.appspot.com/o/calculadora-hcode.jpg?alt=media&token=5406aa3f-b965-401c-9b4e-654609c78b33)
-=======
-# calculadorajs
-Calculadora feita durante o curso de JavaScript da Hcode pela plataforma Udemy
->>>>>>> b451994d001a614940f0241c10cee0707aff194e
-=======
-# calculadorajs
-Calculadora feita durante o curso de JavaScript da Hcode pela plataforma Udemy
->>>>>>> b451994d001a614940f0241c10cee0707aff194e
+Projeto desenvolvido como exemplo do Curso Completo de JavaScript da Hcode na plataforma Udemy.
