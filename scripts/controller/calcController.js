@@ -30,6 +30,8 @@ class CalcController {
 
         }, 10000);*/
 
+        this.setLastNumberToDisplay();
+
     }
     
     
@@ -48,7 +50,8 @@ class CalcController {
     clearAll() {
 
         this._operation = [];
-        return this._operation;
+        
+        this.setLastNumberToDisplay();
 
     }
 
@@ -56,7 +59,8 @@ class CalcController {
     clearEntry() {
 
         this._operation.pop();
-        return this._operation;
+        
+        this.setLastNumberToDisplay();
 
     }
 
@@ -97,17 +101,33 @@ class CalcController {
     // Executa o cálculo    
     calc() {
 
-        let last = this._operation.pop();
+        let last = "";
+        
+        if (this._operation.length > 3) {
+            last = this._operation.pop();
+        }
 
         let result = eval(this._operation.join(""));
 
-        this._operation = [result, last];
+        if (last == "%") {
+
+            result /= 100; // É igual a ela mesma dividido por 100
+
+            this._operation = [result];
+
+        } else {
+
+            this._operation = [result];
+
+            if (last) this._operation.push(last);
+            
+        }
 
         this.setLastNumberToDisplay();
 
     }
     
-    // Exibe o último número digitado no display
+    // Exibe a última operação no display
     setLastNumberToDisplay() {
 
         let lastNumber;
@@ -121,6 +141,8 @@ class CalcController {
             }
             
         }
+
+        if (!lastNumber) lastNumber = 0;
 
         this.displayCalc = lastNumber;
 
@@ -207,7 +229,7 @@ class CalcController {
                 this.addOperation("%");
                 break;
             case "igual":
-                
+                this.calc();
                 break;
             case "ponto":
                 this.addOperation(".");
