@@ -3,6 +3,8 @@ class CalcController {
     constructor() {
         
         // Atributos da classe. Underline para "encapsular" como privado
+        this._lastNumber = "";
+        this._lastOperation = "";
         this._operation = [];
         this._locale = "pt-br";
         this._displayCalcEl = document.querySelector("#display");
@@ -98,16 +100,41 @@ class CalcController {
 
     }
 
+    // Retorna resultado do cálculo
+    getResult() {
+      
+        return eval(this._operation.join(""));
+
+    }
+    
     // Executa o cálculo    
     calc() {
 
         let last = "";
+
+        this._lastOperator = this.getLastItem();
+        
+        if (this._operation.length < 3) {
+
+            let firstItem = this._operation[0];
+
+            this._operation = [firstItem, this._lastOperator, this._lastNumber];
+             
+        }
         
         if (this._operation.length > 3) {
+            
             last = this._operation.pop();
+            
+            this._lastNumber = this.getResult();
+
+        } else if (this._operation.length == 3) {
+
+            this._lastNumber = this.getLastItem(false);
+
         }
 
-        let result = eval(this._operation.join(""));
+        let result = this.getResult();
 
         if (last == "%") {
 
@@ -120,27 +147,40 @@ class CalcController {
             this._operation = [result];
 
             if (last) this._operation.push(last);
-            
+
         }
 
         this.setLastNumberToDisplay();
 
     }
     
+    getLastItem(isOperator = true) {
+
+        let lastItem;
+
+        for (let i = this._operation.length - 1; i >= 0; i--) {
+     
+            if (this.isOperator(this._operation[i]) == isOperator) {
+                lastItem = this._operation[i];
+                break;
+            } 
+
+        }
+
+        if (!lastItem) {
+
+            lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
+
+        }
+
+        return lastItem;
+
+    }
+    
     // Exibe a última operação no display
     setLastNumberToDisplay() {
 
-        let lastNumber;
-
-        for (let i = this._operation.length-1; i >= 0; i--) {
-            
-            // Confere se não é um operador
-            if (!this.isOperator(this._operation[i])) {
-                lastNumber = this._operation[i];
-                break;
-            }
-            
-        }
+        let lastNumber = this.getLastItem(false);
 
         if (!lastNumber) lastNumber = 0;
 
