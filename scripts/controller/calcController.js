@@ -17,6 +17,14 @@ class CalcController {
 
     }
 
+    copyToClipboard() {
+
+        let input = document.createElement("input");
+
+        input.value = this.displayCalc;
+
+    }
+
     initialize() {
 
         this.setDisplayDateTime();
